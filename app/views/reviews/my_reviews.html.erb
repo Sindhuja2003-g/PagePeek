@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-primary"><i class="bi bi-journal-text me-2"></i>My Reviews</h2>
+
+  <% if @reviews.present? %>
+    <% @reviews.each do |review| %>
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-secondary">
+            <i class="bi bi-book-half me-1"></i><%= review.book.title %>
+          </h5>
+          <p class="mb-1"><strong>Rating:</strong> ⭐ <%= review.rating %>/5</p>
+          <p class="mb-2"><strong>Review:</strong> <%= review.review %></p>
+          <p class="text-muted"><i class="bi bi-calendar3"></i> Posted on <%= review.created_at.strftime("%b %d, %Y") %></p>
+        </div>
+        <% if review.user == current_user %>
+  <%= link_to "Edit", edit_book_review_path(review.book, review), class: "btn btn-sm btn-outline-primary me-2" %>
+
+<% end %>
+
+      </div>
+    <% end %>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      <i class="bi bi-info-circle-fill me-1"></i> You haven't written any reviews yet.
+    </div>
+  <% end %>
+</div>
+

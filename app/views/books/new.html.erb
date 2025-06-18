@@ -1,0 +1,43 @@
+<%= form_with(model: @book, local: true, html: { class: "mt-5" }) do |form| %>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <%= form.label :title, class: "form-label" %>
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= form.label :author, class: "form-label" %>
+      <%= form.text_field :author, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", rows: 4 %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :published, class: "form-label" %>
+    <%= form.date_select :published, { start_year: 1900, end_year: Date.today.year }, { class: "form-select d-inline w-auto me-2" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :genres, class: "form-label d-block" %>
+    <div class="row">
+      <% Genre.all.each_slice(3).with_index do |group, row_index| %>
+        <div class="col-md-4">
+          <% group.each do |genre| %>
+            <div class="form-check">
+              <%= form.check_box :genre_ids, { multiple: true, class: "form-check-input" }, genre.id, @book.genre_ids.include?(genre.id) %>
+              <%= label_tag "book_genre_ids_#{genre.id}", genre.name, class: "form-check-label" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="text-end">
+    <%= form.submit class: "btn btn-primary px-4" %>
+  </div>
+<% end %>

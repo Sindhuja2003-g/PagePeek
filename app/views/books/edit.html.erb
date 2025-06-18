@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="card shadow rounded p-4">
+    <h2 class="text-center mb-4">Edit Book</h2>
+
+    <%= form_with model: @book, local: true, html: { class: "needs-validation" } do |f| %>
+      <div class="mb-3">
+        <%= f.label :title, class: "form-label fw-bold" %>
+        <%= f.text_field :title, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :author, class: "form-label fw-bold" %>
+        <%= f.text_field :author, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :description, class: "form-label fw-bold" %>
+        <%= f.text_area :description, class: "form-control", rows: 5, required: true %>
+      </div>
+
+    <div class="mb-3">
+  <%= f.label :published, class: "form-label fw-bold" %>
+  <%= f.date_select :published, { start_year: Date.today.year - 200, end_year: Date.today.year }, class: "form-select" %>
+</div>
+
+
+      <div class="d-flex justify-content-between align-items-center mt-4">
+        <%= f.submit "Update Book", class: "btn btn-primary px-4" %>
+        <%= link_to "Back to Book", book_path(@book), class: "btn btn-outline-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

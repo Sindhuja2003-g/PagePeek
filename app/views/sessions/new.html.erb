@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+          <h4><i class="bi bi-box-arrow-in-right me-2"></i>Login</h4>
+        </div>
+        <div class="card-body">
+          <%= form_with url: login_path, method: :post, local: true do |f| %>
+            <div class="mb-3">
+              <%= f.label :email, class: "form-label" %>
+              <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password, class: "form-label" %>
+              <%= f.password_field :password, class: "form-control", placeholder: "Enter your password" %>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= f.submit "Login", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+
+          <div class="mt-3 text-center">
+            <p>Don't have an account? <%= link_to "Sign up", signup_path, class: "link-primary" %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

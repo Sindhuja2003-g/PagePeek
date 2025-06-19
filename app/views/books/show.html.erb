@@ -46,7 +46,7 @@
           <strong><%= review.user.profile.name %></strong> rated <span class="text-warning"><%= review.rating %>/5</span>
         </h5>
         <p class="card-text"><%= review.review %></p>
-        <p>👍 <%= review.like_count %> Likes</p>
+        <p>👍 <%= review.likes.count %> Likes</p>
 
         <% if logged_in? %>
           <div class="d-flex flex-wrap gap-2">

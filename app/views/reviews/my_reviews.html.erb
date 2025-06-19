@@ -10,8 +10,10 @@
           </h5>
           <p class="mb-1"><strong>Rating:</strong> ⭐ <%= review.rating %>/5</p>
           <p class="mb-2"><strong>Review:</strong> <%= review.review %></p>
+          <p class="mb-2"><strong>Likes:</strong> <%= pluralize(review.likes.count, "Like") %></p>
           <p class="text-muted"><i class="bi bi-calendar3"></i> Posted on <%= review.created_at.strftime("%b %d, %Y") %></p>
         </div>
+
         <% if review.user == current_user %>
   <%= link_to "Edit", edit_book_review_path(review.book, review), class: "btn btn-sm btn-outline-primary me-2" %>
 

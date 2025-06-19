@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
 def require_login
   unless logged_in?
-    session[:user_id] = nil # clear stale session
+    session[:user_id] = nil 
     redirect_to login_path, alert: "Please log in again"
   end
 end

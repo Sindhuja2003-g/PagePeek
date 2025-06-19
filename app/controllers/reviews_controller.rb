@@ -13,14 +13,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def update
-    if @review.update(review_params)
-      redirect_to book_path(@review.book), notice: "Review updated."
-    else
-      render :edit
-    end
-  end
-
   def destroy
     @review.destroy
     redirect_to book_path(@review.book), notice: "Review deleted."

@@ -43,12 +43,12 @@
       <div class="card-body">
         <h5 class="card-subtitle mb-2 text-muted">
           <i class="bi bi-person-circle text-dark"></i>
-          <strong><%= review.user.profile.name %></strong> rated <span class="text-warning"><%= review.rating %>/5</span>
+          <strong><%= review.user.username %></strong> rated <span class="text-warning"><%= review.rating %>/5</span>
         </h5>
         <p class="card-text"><%= review.review %></p>
         <p>👍 <%= review.likes.count %> Likes</p>
 
-        <% if logged_in? %>
+        <% if user_signed_in? %>
           <div class="d-flex flex-wrap gap-2">
             <% unless review.likes.exists?(user: current_user) %>
               <%= button_to "Like", likes_path(likeable_type: "Review", likeable_id: review.id), method: :post, class: "btn btn-sm btn-outline-success" %>
@@ -65,22 +65,21 @@
     </div>
   <% end %>
 
-  <% if logged_in? %>
-    <h3 class="mt-5 text-primary"><i class="bi bi-pencil-square me-1"></i> Add or Edit Your Review</h3>
-    <div class="card mt-3 shadow-sm border border-primary">
-      <div class="card-body">
-        <%= form_with model: [@book, @book.reviews.new], local: true do |f| %>
-          <div class="mb-3">
-            <%= f.label :rating, class: "form-label" %>
-            <%= f.number_field :rating, in: 1..5, class: "form-control w-25" %>
-          </div>
-          <div class="mb-3">
-            <%= f.label :review, class: "form-label" %>
-            <%= f.text_area :review, class: "form-control", rows: 4 %>
-          </div>
-          <%= f.submit "Post Review", class: "btn btn-primary" %>
-        <% end %>
-      </div>
+<% if user_signed_in? && !moderator? %>
+  <h3 class="mt-5 text-primary"><i class="bi bi-pencil-square me-1"></i> Add or Edit Your Review</h3>
+  <div class="card mt-3 shadow-sm border border-primary">
+    <div class="card-body">
+      <%= form_with model: [@book, @book.reviews.new], local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :rating, class: "form-label" %>
+          <%= f.number_field :rating, in: 1..5, class: "form-control w-25" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :review, class: "form-label" %>
+          <%= f.text_area :review, class: "form-control", rows: 4 %>
+        </div>
+        <%= f.submit "Post Review", class: "btn btn-primary" %>
+      <% end %>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

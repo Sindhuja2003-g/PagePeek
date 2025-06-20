@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_user!
+  before_action :block_moderators
 
   def create
     likeable = find_likeable
@@ -19,4 +20,11 @@ class LikesController < ApplicationController
   def find_likeable
     params[:likeable_type].constantize.find(params[:likeable_id])
   end
+
+def block_moderators
+  if user_signed_in? && current_user.moderator?
+    redirect_back fallback_location: root_path, alert: "Moderators cannot like or unlike."
+  end
+end
+
 end

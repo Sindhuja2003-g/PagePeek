@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_user!
+
   before_action :require_moderator, only: [:new, :create, :edit, :update, :destroy]
 
 

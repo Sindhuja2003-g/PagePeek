@@ -18,9 +18,10 @@
         <%= f.text_area :description, class: "form-control", rows: 5, required: true %>
       </div>
 
-    <div class="mb-3">
-  <%= f.label :published, class: "form-label fw-bold" %>
-  <%= f.date_select :published, { start_year: Date.today.year - 200, end_year: Date.today.year }, class: "form-select" %>
+<div class="d-flex gap-2">
+  <%= f.date_select :published,
+    { start_year: Date.today.year - 200, end_year: Date.today.year },
+    { class: "form-select w-auto", include_blank: true } %>
 </div>
 
 

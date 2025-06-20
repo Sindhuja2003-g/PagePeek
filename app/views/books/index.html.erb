@@ -20,7 +20,9 @@
               <h6 class="card-subtitle mb-2 text-muted">Author: <%= book.author %></h6>
 
               <!-- Like button and count -->
-              <% if logged_in? %>
+           <% if user_signed_in? && !current_user.moderator? %>
+
+
                 <div class="mb-3">
                   <% if book.likes.exists?(user: current_user) %>
                     <%= button_to likes_path(likeable_type: "Book", likeable_id: book.id),

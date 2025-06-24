@@ -4,16 +4,24 @@ class BooksController < ApplicationController
   before_action :require_moderator, only: [:new, :create, :edit, :update, :destroy]
 
 
-  def index
-    @genres = Genre.all
-    @books = Book.all.includes(:likes, :reviews, :genres)
-  end
+def index
+  @books = if params[:query].present?
+             Book.search(params[:query])
+                 .includes(:likes, :genres)
+               
+           else
+             Book.most_liked.includes(:likes, :genres)
+           end
+end
+
 
 
   def show
     @book = Book.find(params[:id])
-    @reviews = @book.reviews.includes(:user)
+    @book.increment!(:view_count)
+    @reviews = @book.reviews.top_rated.includes(:user)
   end
+
 
   def new
     @book = Book.new

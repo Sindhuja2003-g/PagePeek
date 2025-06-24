@@ -1,12 +1,36 @@
 Rails.application.routes.draw do
+   devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
 
   # Root path
   root "books#index"
 
+
+  use_doorkeeper do
+  skip_controllers :authorizations, :applications, :authorized_applications
+  end
+
+
+
+
+namespace :api do
+  namespace :v1 do
+    resources :books do
+      collection do
+        get :most_viewed
+      end
+    end
+  end
+end
+
+
+
+resources :wishlists, only: [:index, :create, :destroy]
+
+
   devise_for :users
-
-  resource :profile, only: [:edit, :update, :destroy]
-
+  resource :profile, only: [:edit, :update, :destroy] 
+  get 'profiles/:id', to: 'profiles#show', as: 'public_profile' 
 
   resources :books do
     resources :reviews, except: [:index, :new, :show] 
@@ -16,9 +40,10 @@ Rails.application.routes.draw do
 
   post   "likes", to: "likes#create",  as: :likes
   delete "likes", to: "likes#destroy"
+  
 
 
-  resources :genres, only: [:index, :show]
+  resources :genres
 
   # Health check & PWA
   get "up",              to: "rails/health#show",         as: :rails_health_check

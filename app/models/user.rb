@@ -8,16 +8,23 @@ class User < ApplicationRecord
 
   before_validation :set_default_role, on: :create
   validates :username, presence: true, uniqueness: true
-
+  
+  has_many :wishlists, dependent: :destroy
+  has_many :wishlist_books, through: :wishlists, source: :book
   has_one :profile, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :reviewed_books, through: :reviews, source: :book
 
+  has_many :liked_books, through: :likes, source: :likeable, source_type: 'Book'
+
+
+
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
 
   after_create :create_profile
+
 
   private
 

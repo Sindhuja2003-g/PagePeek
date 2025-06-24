@@ -58,6 +58,9 @@
               <li class="nav-item"><%= link_to "Genres", genres_path, class: "nav-link" %></li>
               <% if user_signed_in? && !current_user.moderator? %>
   <li class="nav-item"><%= link_to "My Reviews", my_reviews_path, class: "nav-link" %></li>
+   <li class="nav-item"><%= link_to "My Wishlist", wishlists_path, class: "nav-link" %></li>
+
+
 <% end %>
 
             

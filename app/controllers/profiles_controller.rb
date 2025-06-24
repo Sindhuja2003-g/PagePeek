@@ -4,6 +4,14 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = current_user.profile
+    @liked_books = current_user.liked_books
+  end
+
+  def show
+  @user = User.find_by!(username: params[:id])
+  @profile = @user.profile
+  @reviews = @user.reviews.includes(:book)
+  @liked_books = @user.liked_books
   end
 
   def update

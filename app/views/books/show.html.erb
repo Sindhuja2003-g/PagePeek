@@ -43,7 +43,11 @@
       <div class="card-body">
         <h5 class="card-subtitle mb-2 text-muted">
           <i class="bi bi-person-circle text-dark"></i>
-          <strong><%= review.user.username %></strong> rated <span class="text-warning"><%= review.rating %>/5</span>
+          <strong>
+<%= link_to review.user.username, public_profile_path(review.user.username), class: "text-decoration-none text-dark" %>
+
+</strong>
+ rated <span class="text-warning"><%= review.rating %>/5</span>
         </h5>
         <p class="card-text"><%= review.review %></p>
         <p>👍 <%= review.likes.count %> Likes</p>

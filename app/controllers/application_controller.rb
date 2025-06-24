@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: "Access denied" unless moderator?
   end
   
+ 
 protected
 
 def configure_permitted_parameters

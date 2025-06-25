@@ -62,22 +62,22 @@
                   <span class="ms-1 text-muted"><%= book.likes.count %></span>
                 </div>
               <% end %>
-  <% if user_signed_in? && !current_user.moderator? %>
-          <% if current_user.wishlist_books.include?(book) %>
-            <% wishlist = current_user.wishlists.find_by(book_id: book.id) %>
-            <%= button_to wishlist_path(wishlist),
-                          method: :delete,
-                          class: "btn btn-outline-danger btn-sm w-100 mb-2" do %>
-              <i class="bi bi-bookmark-dash"></i> Remove from Wishlist
-            <% end %>
-          <% else %>
-            <%= button_to wishlists_path(book_id: book.id),
-                          method: :post,
-                          class: "btn btn-outline-primary btn-sm w-100 mb-2" do %>
-              <i class="bi bi-bookmark-plus"></i> Add to Wishlist
-            <% end %>
-          <% end %>
-        <% end %>
+<% if user_signed_in? && !current_user.moderator? %>
+  <% if current_user.wishlist_books.include?(book) %>
+    <%= button_to remove_from_wishlist_path(book_id: book.id),
+                  method: :delete,
+                  class: "btn btn-outline-danger btn-sm w-100 mb-2" do %>
+      <i class="bi bi-bookmark-dash"></i> Remove from Wishlist
+    <% end %>
+  <% else %>
+    <%= button_to add_to_wishlist_path(book_id: book.id),
+                  method: :post,
+                  class: "btn btn-outline-primary btn-sm w-100 mb-2" do %>
+      <i class="bi bi-bookmark-plus"></i> Add to Wishlist
+    <% end %>
+  <% end %>
+<% end %>
+
 
 
               <!-- Moderator actions -->

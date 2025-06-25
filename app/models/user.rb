@@ -8,9 +8,9 @@ class User < ApplicationRecord
 
   before_validation :set_default_role, on: :create
   validates :username, presence: true, uniqueness: true
-  
-  has_many :wishlists, dependent: :destroy
-  has_many :wishlist_books, through: :wishlists, source: :book
+  has_and_belongs_to_many :wishlist_books, class_name: 'Book', join_table: :wishlists
+
+
   has_one :profile, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -24,6 +24,15 @@ class User < ApplicationRecord
   validates :password, presence: true
 
   after_create :create_profile
+
+def self.ransackable_attributes(auth_object = nil)
+  %w[username email role created_at]
+end
+
+def self.ransackable_associations(auth_object = nil)
+  %w[profile reviews likes reviewed_books liked_books]
+end
+
 
 
   private

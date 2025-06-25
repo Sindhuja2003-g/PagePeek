@@ -10,7 +10,7 @@ def index
                  .includes(:likes, :genres)
                
            else
-             Book.most_liked.includes(:likes, :genres)
+             Book.includes(:likes, :genres)
            end
 end
 

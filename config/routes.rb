@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-   devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   # Root path
@@ -25,10 +25,13 @@ end
 
 
 
-resources :wishlists, only: [:index, :create, :destroy]
+  post   'wishlist/add',    to: 'wishlists#add',    as: :add_to_wishlist
+  delete 'wishlist/remove', to: 'wishlists#remove', as: :remove_from_wishlist
 
+  get    'my_wishlist',     to: 'wishlists#index',  as: :my_wishlist
 
   devise_for :users
+  
   resource :profile, only: [:edit, :update, :destroy] 
   get 'profiles/:id', to: 'profiles#show', as: 'public_profile' 
 

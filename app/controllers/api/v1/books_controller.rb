@@ -6,9 +6,10 @@ module Api
       before_action :require_moderator!, only: [:create, :update, :destroy]
       
   def most_viewed
-    books = Book.order(view_count: :desc).limit(10)
-    render json: books.as_json(only: [:id, :title, :author, :view_count])
-  end
+  books = Book.where("view_count > 0").order(view_count: :desc).limit(10)
+  render json: books.as_json(only: [:id, :title, :author, :view_count])
+end
+
 
       def index
         @books = Book.all

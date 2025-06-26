@@ -2,21 +2,20 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_review, only: [:edit, :update, :destroy]
   before_action :authorize_review_action, only: [:update, :destroy]
-  
-  def create
-    if user_signed_in? && current_user.moderator?
-    redirect_to book_path(params[:book_id]), alert: "Moderators cannot write reviews."
-    return
-    end
+  before_action :reject_moderators, only: [:create]
 
-    @book = Book.find(params[:book_id])
-    @review = @book.reviews.new(review_params.merge(user: current_user))
-    if @review.save
-      redirect_to book_path(@book), notice: "Review added."
-    else
-      redirect_to book_path(@book), alert: "Could not add review."
-    end
+  
+def create
+  @book = Book.find(params[:book_id])
+  @review = @book.reviews.new(review_params.merge(user: current_user))
+
+  if @review.save
+    redirect_to book_path(@book), notice: "Review added."
+  else
+    redirect_to book_path(@book), alert: "Could not add review."
   end
+end
+
 
   def destroy
     @review.destroy
@@ -58,5 +57,10 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(:rating, :review)
   end
 
+  def reject_moderators
+  if user_signed_in? && current_user.moderator?
+    redirect_to book_path(params[:book_id]), alert: "Moderators cannot write reviews."
+  end
+end
 
 end

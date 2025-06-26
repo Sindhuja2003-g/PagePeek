@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user_unless_active_admin
 
-   helper_method :moderator?
+  helper_method :moderator?
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  
   def active_admin_request?
     request.fullpath.starts_with?('/admin')
   end 

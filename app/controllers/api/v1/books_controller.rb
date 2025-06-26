@@ -2,28 +2,28 @@ module Api
   module V1
     class BooksController < ActionController::API
       before_action :doorkeeper_authorize!
-      before_action :set_book, only: [:show, :update, :destroy]
       before_action :require_moderator!, only: [:create, :update, :destroy]
-      
-  def most_viewed
-  books = Book.where("view_count > 0").order(view_count: :desc).limit(10)
-  render json: books.as_json(only: [:id, :title, :author, :view_count])
-end
+      before_action :set_book, only: [:show, :update, :destroy]
 
 
       def index
         @books = Book.all
-        render json: @books
+        render 'api/v1/books/index'
       end
 
       def show
-        render json: @book
+        render 'api/v1/books/show'
+      end
+
+      def most_viewed
+        @books = Book.where("view_count > 0").order(view_count: :desc).limit(10)
+        render 'api/v1/books/most_viewed'
       end
 
       def create
         @book = Book.new(book_params)
         if @book.save
-          render json: @book, status: :created
+          render 'api/v1/books/show', status: :created
         else
           render json: { errors: @book.errors.full_messages }, status: :unprocessable_entity
         end
@@ -31,7 +31,7 @@ end
 
       def update
         if @book.update(book_params)
-          render json: @book
+          render 'api/v1/books/show'
         else
           render json: { errors: @book.errors.full_messages }, status: :unprocessable_entity
         end
@@ -59,11 +59,8 @@ end
       end
 
       def require_moderator!
-        unless current_user&.moderator?
-          render json: { error: "Forbidden: Only moderators can perform this action." }, status: :forbidden
-        end
+        render json: { error: "Forbidden: Only moderators can perform this action." }, status: :forbidden unless current_user&.moderator?
       end
-
     end
   end
 end

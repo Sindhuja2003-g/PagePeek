@@ -2,9 +2,17 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.0'
+
+#to create admin panel
 gem 'activeadmin'
+
+#for scss stylesheets
 gem 'sassc'
 gem 'sassc-rails'
+
+#render JSON or XML responses for APIs
+gem 'rabl'
+
 
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -27,7 +35,8 @@ gem 'devise'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 gem 'doorkeeper'
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+# Use Active Model has_s  it { should have_one(:profile).dependent(:destroy) }
+#secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -59,6 +68,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem 'byebug', platform: :mri
-  gem 'rspec-rails'
+  gem 'rspec-rails'         # Adds RSpec testing framework for writing and running test cases in Rails.
+  gem 'factory_bot_rails'   # Simplifies the creation of test data 
+  gem 'faker'               # Generates fake data
 end

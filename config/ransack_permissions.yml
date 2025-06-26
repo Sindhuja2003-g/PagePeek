@@ -1,0 +1,58 @@
+AdminUser:
+  attributes:
+    - email
+    - current_sign_in_at
+    - sign_in_count
+    - created_at
+  associations: []
+
+Book:
+  attributes:
+    - title
+    - author
+    - published
+    - created_at
+  associations:
+    - genres
+    - likes
+    - reviews
+
+Genre:
+  attributes:
+    - name
+  associations:
+    - books
+
+Like:
+  attributes:
+    - likeable_type
+    - created_at
+  associations:
+    - user
+    - likeable
+
+Profile:
+  attributes:
+    - location
+    - bio
+  associations:
+    - user
+
+Review:
+  attributes:
+    - rating
+    - created_at
+  associations:
+    - user
+    - book
+
+User:
+  attributes:
+    - username
+    - email
+    - role
+    - created_at
+  associations:
+    - profile
+    - reviews
+    - likes

@@ -25,3 +25,7 @@ module BookReview
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
+
+Rabl.configure do |config|
+  config.include_json_root = false
+end

@@ -13,7 +13,7 @@ ActiveAdmin.register User do
 
   filter :username
   filter :email
-  filter :role
+
   filter :created_at
 
   show do
@@ -25,6 +25,14 @@ ActiveAdmin.register User do
       row :created_at
     end
     active_admin_comments
+  end
+
+  scope :Users do |users|
+    users.where(role: :user)
+  end
+
+  scope :Moderators do |users|
+    users.where(role: :moderator)
   end
 
   form do |f|

@@ -8,7 +8,7 @@ class Book < ApplicationRecord
   validates :published, presence: true
   has_and_belongs_to_many :wishlisted_by, class_name: 'User', join_table: :wishlists
 
-
+  include Ransackable
 
 
 
@@ -23,14 +23,6 @@ scope :most_liked, -> {
   scope :search, ->(query) {
   where("title ILIKE :q OR author ILIKE :q", q: "%#{query}%")
 }
-
- def self.ransackable_attributes(auth_object = nil)
-  %w[title author published created_at]
-end
-
-def self.ransackable_associations(auth_object = nil)
-  %w[genres reviews likes wishlisted_by]
-end
 
 
 

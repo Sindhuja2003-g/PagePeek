@@ -6,19 +6,13 @@ Rails.application.routes.draw do
   root "books#index"
 
 
-  use_doorkeeper do
-  skip_controllers :authorizations, :applications, :authorized_applications
-  end
+  use_doorkeeper 
 
 
-
-
-namespace :api do
-  namespace :v1 do
-    resources :books do
-      collection do
-        get :most_viewed
-      end
+namespace :admin do
+  resources :books do
+    member do
+      get 'details' 
     end
   end
 end
@@ -27,7 +21,6 @@ end
 
   post   'wishlist/add',    to: 'wishlists#add',    as: :add_to_wishlist
   delete 'wishlist/remove', to: 'wishlists#remove', as: :remove_from_wishlist
-
   get    'my_wishlist',     to: 'wishlists#index',  as: :my_wishlist
 
   devise_for :users
@@ -39,12 +32,22 @@ end
     resources :reviews, except: [:index, :new, :show] 
   end
 
+#api
+namespace :api do
+  namespace :v1 do
+    resources :books do
+      collection do
+        get :most_viewed
+      end
+    end
+  end
+end
+
   get "my_reviews", to: "reviews#my_reviews", as: :my_reviews
 
   post   "likes", to: "likes#create",  as: :likes
   delete "likes", to: "likes#destroy"
   
-
 
   resources :genres
 

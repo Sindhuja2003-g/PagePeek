@@ -9,7 +9,7 @@ class User < ApplicationRecord
   before_validation :set_default_role, on: :create
   validates :username, presence: true, uniqueness: true
   has_and_belongs_to_many :wishlist_books, class_name: 'Book', join_table: :wishlists
-
+  before_validation :downcase_username
 
   has_one :profile, dependent: :destroy
   has_many :reviews, dependent: :destroy
@@ -18,24 +18,16 @@ class User < ApplicationRecord
 
   has_many :liked_books, through: :likes, source: :likeable, source_type: 'Book'
 
-
+  
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
 
   after_create :create_profile
-
-def self.ransackable_attributes(auth_object = nil)
-  %w[username email role created_at]
-end
-
-def self.ransackable_associations(auth_object = nil)
-  %w[profile reviews likes reviewed_books liked_books]
-end
+include Ransackable
 
 
-
-  private
+private
 
   def create_profile
     self.build_profile.save
@@ -44,4 +36,10 @@ end
   def set_default_role
     self.role ||= :user
   end
+
+  def downcase_username
+  self.username = username.downcase if username.present?
+end
+
+
 end

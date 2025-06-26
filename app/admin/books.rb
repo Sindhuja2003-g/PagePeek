@@ -1,5 +1,26 @@
 ActiveAdmin.register Book do
   permit_params :title, :author, :published, genre_ids: []
+
+   member_action :details, method: :get do
+    book = Book.find(params[:id])
+    details = <<~TEXT
+      Title: #{book.title}
+      Author: #{book.author}
+      Description: #{book.description}
+      Published: #{book.published}
+      Likes: #{book.likes.count}
+      Genres: #{book.genres.pluck(:name).join(', ')}
+      Reviews:
+      #{book.reviews.map { |r| "- #{r.user.username}: #{r.review} (Rating: #{r.rating})" }.join("\n")}
+    TEXT
+
+    render plain: details
+  end
+
+ 
+  action_item :view_details, only: :show do
+    link_to 'View Book Details', details_admin_book_path(resource)
+  end
   
   index do
     selectable_column

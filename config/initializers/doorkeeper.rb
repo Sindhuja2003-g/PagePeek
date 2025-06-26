@@ -13,13 +13,17 @@ resource_owner_from_credentials do |_routes|
   end
 end
 
+base_controller 'Admin::DoorkeeperControllerBase'
+
+admin_authenticator do
+  current_admin_user.present?
+end
+
 
 allow_blank_redirect_uri true
  
-  grant_flows %w[password]
-    skip_authorization do
-    true
-  end
+  grant_flows %w[password client_credentials]
+ 
 
 
    use_refresh_token
@@ -38,6 +42,8 @@ allow_blank_redirect_uri true
   #     redirect_to sign_in_url
   #   end
   # end
+
+
 
   # You can use your own model classes if you need to extend (or even override) default
   # Doorkeeper models such as `Application`, `AccessToken` and `AccessGrant.

@@ -23,7 +23,7 @@ end
 allow_blank_redirect_uri true
  
   grant_flows %w[password client_credentials]
- 
+
 
 
    use_refresh_token

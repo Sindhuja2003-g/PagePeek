@@ -1,4 +1,3 @@
-# spec/factories/profiles.rb
 FactoryBot.define do
   factory :profile do
     bio { Faker::Quote.matz }

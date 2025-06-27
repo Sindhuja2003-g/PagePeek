@@ -1,5 +1,3 @@
-# spec/factories/doorkeeper_access_tokens.rb
-
   FactoryBot.define do
   factory :access_token, class: 'Doorkeeper::AccessToken' do
     application { create(:oauth_application) }

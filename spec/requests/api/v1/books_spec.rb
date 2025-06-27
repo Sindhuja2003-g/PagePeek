@@ -120,7 +120,7 @@ describe "POST /api/v1/books" do
       book: {
         title: "",  
         author: "Test Author"
-        # description and published missing
+      
       }
     }
   end

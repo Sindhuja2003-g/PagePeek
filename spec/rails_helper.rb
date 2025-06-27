@@ -5,6 +5,7 @@ SimpleCov.start 'rails' do
   add_filter '/spec/'       # ignore test files themselves
   add_filter '/config/'     # optional
 end
+
 require 'spec_helper'
 # spec/rails_helper.rb
 require 'faker'

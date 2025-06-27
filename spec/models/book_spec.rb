@@ -75,16 +75,23 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe '.search' do
-    let!(:book1) { create(:book, title: 'Harry Potter', author: 'J.K. Rowling') }
-    let!(:book2) { create(:book, title: 'Ruby Secrets', author: 'Yukihiro Matsumoto') }
+describe '.search' do
+  let!(:book1) { create(:book, title: 'Harry Potter', author: 'J.K. Rowling') }
+  let!(:book2) { create(:book, title: 'Ruby Secrets', author: 'Yukihiro Matsumoto') }
 
-    it 'returns books matching the search query in title or author' do
-      expect(Book.search('ruby')).to include(book2)
-      expect(Book.search('potter')).to include(book1)
-      expect(Book.search('java')).to be_empty
-    end
+  it 'returns books matching title' do
+    expect(Book.search('potter')).to include(book1)
   end
+
+  it 'returns books matching author' do
+    expect(Book.search('ruby')).to include(book2)
+  end
+
+  it 'returns no books if no match is found' do
+    expect(Book.search('java')).to be_empty
+  end
+end
+
 
 
 end

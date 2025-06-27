@@ -57,6 +57,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
 end
 
 group :development do
@@ -71,4 +72,7 @@ group :test do
   gem 'rspec-rails'         # Adds RSpec testing framework for writing and running test cases in Rails.
   gem 'factory_bot_rails'   # Simplifies the creation of test data 
   gem 'faker'               # Generates fake data
+  #code coverage analysis tool
+gem 'simplecov', require: false
+
 end

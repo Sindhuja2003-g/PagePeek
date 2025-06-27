@@ -31,16 +31,21 @@ RSpec.describe Review, type: :model do
       expect(review).not_to be_valid
     end
 
-    it 'is invalid if rating is not between 1 and 5' do
-      review.rating = 0
-      expect(review).not_to be_valid
+it 'is invalid if rating is less than 1' do
+  review.rating = 0
+  expect(review).not_to be_valid
+end
 
-      review.rating = 6
-      expect(review).not_to be_valid
+it 'is invalid if rating is greater than 5' do
+  review.rating = 6
+  expect(review).not_to be_valid
+end
 
-      review.rating = 3
-      expect(review).to be_valid
-    end
+it 'is valid if rating is between 1 and 5' do
+  review.rating = 3
+  expect(review).to be_valid
+end
+
   end
 
  

@@ -1,11 +1,9 @@
 ActiveAdmin.register Genre do
   permit_params :name
 
- 
   scope :all, default: true
   scope("With Books")     { |genres| genres.joins(:books).distinct }
   scope("Without Books")  { |genres| genres.left_outer_joins(:books).where(books: { id: nil }) }
-
 
   index do
     selectable_column
@@ -15,10 +13,8 @@ ActiveAdmin.register Genre do
     actions
   end
 
-
   filter :name
-  filter :books, as: :select, collection: -> { Book.pluck(:title, :id) }
-
+  filter :books_title_cont, as: :string, label: 'Book Title'
 
   form do |f|
     f.inputs do

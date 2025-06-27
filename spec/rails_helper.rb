@@ -1,4 +1,10 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter '/spec/'       # ignore test files themselves
+  add_filter '/config/'     # optional
+end
 require 'spec_helper'
 # spec/rails_helper.rb
 require 'faker'
@@ -11,6 +17,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # that will avoid rails generators crashing because migrations haven't been run yet
 # return unless Rails.env.test?
 require 'rspec/rails'
+
+
 
 
 

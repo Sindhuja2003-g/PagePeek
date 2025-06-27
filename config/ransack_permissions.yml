@@ -25,11 +25,12 @@ Genre:
 
 Like:
   attributes:
+    - user_id
     - likeable_type
     - created_at
   associations:
     - user
-    - likeable
+
 
 Profile:
   attributes:
@@ -42,6 +43,7 @@ Review:
   attributes:
     - rating
     - created_at
+    - book_id
   associations:
     - user
     - book

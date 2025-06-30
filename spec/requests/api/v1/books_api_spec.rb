@@ -12,11 +12,11 @@ RSpec.describe "API::V1::Books", type: :request do
   let(:user_headers) { { Authorization: "Bearer #{user_token.token}" } }
   let(:mod_headers)  { { Authorization: "Bearer #{mod_token.token}" } }
 
- # describe "GET /api/v1/books" do
-   # before do
-     # create_list(:book, 3)
-     # get "/api/v1/books", headers: user_headers
-   # end
+  describe "GET /api/v1/books" do
+    before do
+      create_list(:book, 3)
+      get "/api/v1/books", headers: user_headers
+    end
 
     it "returns status ok" do
       expect(response).to have_http_status(:ok)

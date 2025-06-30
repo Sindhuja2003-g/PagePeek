@@ -299,18 +299,18 @@ end
           expect(response).to have_http_status(:unauthorized)
         end
       end
-  context "when the book does not exist" do
-    let(:non_existent_id) { 999999 }
-    let(:params) { { book: { title: "Update Attempt" } } }
+    context "when the book does not exist" do
+       let(:non_existent_id) { 999999 }
+       let(:params) { { book: { title: "Update Attempt" } } }
 
-    subject(:api_response) { delete "/api/v1/books/#{non_existent_id}", params: params, headers: mod_headers }
+        subject(:api_response) { delete "/api/v1/books/#{non_existent_id}", params: params, headers: mod_headers }
 
-    it "returns not found" do
-      api_response
-      expect(response).to have_http_status(:not_found)
-    end
+        it "returns not found" do
+           api_response
+           expect(response).to have_http_status(:not_found)
     end
   end
+end
 
 
     describe "GET /api/v1/books/most_viewed" do

@@ -1,18 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe Genre, type: :model do
-  let(:genre) { build(:genre) }
-
+  let(:genre) { create(:genre) }
+  let(:book1) { create(:book) }
+  let(:book2) { create(:book) }
 
   describe 'associations' do
-    it 'can be associated with many books' do
-      book1 = create(:book)
-      book2 = create(:book)
+    before do
       genre.books << [book1, book2]
-      genre.save
-      expect(genre.books).to match_array([book1, book2])
+    end
+
+    it 'can be associated with the first book' do
+      expect(genre.books).to include(book1)
+    end
+
+    it 'can be associated with the second book' do
+      expect(genre.books).to include(book2)
+    end
+
+    it 'has exactly two books associated' do
+      expect(genre.books.size).to eq(2)
     end
   end
-
-
 end

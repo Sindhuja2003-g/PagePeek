@@ -9,6 +9,4 @@ RSpec.describe Profile, type: :model do
       expect(profile.user).to eq(user)
     end
   end
-
-
 end

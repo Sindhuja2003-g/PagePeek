@@ -70,19 +70,25 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe '.most_liked' do
-    it 'returns books ordered by number of likes descending' do
-      book1 = create(:book)
-      book2 = create(:book)
-      user = create(:user)
-      create_list(:like, 3, likeable: book1, user: user)
-      create(:like, likeable: book2, user: user)
+describe '.most_liked' do
+  before do
+    @book1 = create(:book)
+    @book2 = create(:book)
+    @user = create(:user)
+    create_list(:like, 3, likeable: @book1, user: @user)
+    create(:like, likeable: @book2, user: @user)
+  end
 
-      result = Book.most_liked
-      expect(result.first).to eq(book1)
-      expect(result.second).to eq(book2)
+  it 'returns books ordered by number of likes descending' do
+    result = Book.most_liked
+
+    aggregate_failures 'checking order of most liked books' do
+      expect(result.first).to eq(@book1)
+      expect(result.second).to eq(@book2)
     end
   end
+end
+
 
   describe '.search' do
     let!(:book1) { create(:book, title: 'Harry Potter', author: 'J.K. Rowling') }
